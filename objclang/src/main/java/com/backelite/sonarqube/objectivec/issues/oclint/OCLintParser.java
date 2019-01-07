@@ -95,6 +95,10 @@ final class OCLintParser {
             Node node = nodeList.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
+                if(element.getAttribute(RULE).equals("compiler error")){
+                    LOGGER.warn("compiler error :context{}",element.getTextContent());
+                    continue;
+                }
                 NewIssueLocation dil = new DefaultIssueLocation()
                     .on(inputFile)
                     .at(inputFile.selectLine(Integer.valueOf(element.getAttribute(LINE))))
